@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.fmisser.circuit.BriefCardFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <com.fmisser.circuit.ui.common.WrapContentHeightViewPager
+        android:id="@+id/viewPager_brief_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorTransparent"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:clipToPadding="false">
+    </com.fmisser.circuit.ui.common.WrapContentHeightViewPager>
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 带小红点TextView属性. -->
+    <declare-styleable name="RedDotTextView">
+        <attr name="redDotVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+        </attr>
+        <attr name="redDotRadius" format="dimension" />
+    </declare-styleable>
+</resources>

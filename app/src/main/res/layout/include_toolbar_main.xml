@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@color/colorLightWhite">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:drawableLeft="@drawable/ic_menu_757575_24dp"
+        android:drawableStart="@drawable/ic_menu_757575_24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="@dimen/textView_drawable_horizontal_padding"
+        android:text="@string/toolbar_main_title"
+        android:textColor="@color/toolbar_text_gray"
+        android:textSize="@dimen/toolbar_title_text_size"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:drawableLeft="@drawable/ic_search_757575_24dp"
+        android:drawableStart="@drawable/ic_search_757575_24dp"/>
+
+    <!--<com.fmisser.circuit.ui.common.RedDotTextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+        <!--android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
+        <!--android:drawableLeft="@drawable/ic_sms_757575_24dp"-->
+        <!--android:drawableStart="@drawable/ic_sms_757575_24dp" />-->
+
+</android.support.v7.widget.Toolbar>

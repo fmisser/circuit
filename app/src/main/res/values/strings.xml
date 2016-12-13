@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Circuit</string>
+
+    <string name="toolbar_main_title">PARK</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

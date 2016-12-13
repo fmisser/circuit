@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- No ActionBar theme. -->
+    <style name="AppNoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- MainActivity theme. -->
+    <style name="MainActivityStyle" parent="Theme.AppCompat.NoActionBar" />
+
+    <style name="BriefCardFragmentStyle" parent="">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@color/colorTransparent</item>
+        <item name="windowMinWidthMajor">0dp</item>
+        <item name="windowMinWidthMinor">0dp</item>
+    </style>
+
 </resources>

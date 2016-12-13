@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- MainActivity theme. -->
+    <style name="MainActivityStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:statusBarColor">@color/colorLightWhite</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>
