@@ -9,4 +9,12 @@
     <!-- TextView dimensions. -->
     <dimen name="textView_drawable_horizontal_padding">4dp</dimen>
 
+    <!-- BottomBar height -->
+    <dimen name="bottom_bar_height">56dp</dimen>
+
+    <!-- BriefCardView bottom margin-->
+    <dimen name="brief_card_view_margin_bottom">20dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
 </resources>

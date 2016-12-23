@@ -19,11 +19,28 @@
     <!-- MainActivity theme. -->
     <style name="MainActivityStyle" parent="Theme.AppCompat.NoActionBar" />
 
+    <!--Brief Card Fragment Dialog Sytle-->
     <style name="BriefCardFragmentStyle" parent="">
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground">@color/colorTransparent</item>
         <item name="windowMinWidthMajor">0dp</item>
         <item name="windowMinWidthMinor">0dp</item>
     </style>
+
+    <!--Splash Activity style -->
+    <style name="SplashStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@drawable/background_splash</item>
+    </style>
+
+    <!-- Guide Activity style -->
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

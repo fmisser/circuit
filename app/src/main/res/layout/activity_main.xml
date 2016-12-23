@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context="com.fmisser.circuit.MainActivity">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/activity_main_drawerLayout"
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<FrameLayout-->
+            <!--android:id="@+id/content_news"-->
+            <!--android:background="@color/colorAccent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+        <!--</FrameLayout>-->
+    <!--</android.support.v4.widget.NestedScrollView>-->
+
+    <FrameLayout
+        android:id="@+id/content_news"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/content_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/colorLightWhite">
+        android:layout_marginBottom="@dimen/bottom_bar_height">
+    </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <include layout="@layout/include_toolbar_main" />
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:layout_gravity="bottom"
+        app:bb_showShadow="false"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_behavior="shy">
+    </com.roughike.bottombar.BottomBar>
 
-            <TextView
-                android:id="@+id/showFragment"
-                android:clickable="true"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Hello World!"
-                android:textColor="@color/colorBlack"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/colorAccent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Hello World!" />
-
-        </LinearLayout>
-
-    </android.support.v4.widget.DrawerLayout>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

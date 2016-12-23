@@ -1,119 +1,130 @@
 package com.fmisser.circuit;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.os.Build;
-import android.support.v4.widget.DrawerLayout;
+import android.support.annotation.IdRes;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.KeyEvent;
 
 import com.fmisser.circuit.ui.common.Utils;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private TextView tvShowFragment;
+    private static final long EXIT_MILLIS = 2000L;
+    private long lastTime = 0L;
+
+    private CoordinatorLayout coordinatorLayout;
+    private BottomBar bottomBar;
+
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawerLayout);
-        tvShowFragment = (TextView) findViewById(R.id.showFragment);
-        tvShowFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BriefCardFragment fragment = BriefCardFragment.newInstance("param1", "param2");
-                fragment.show(getFragmentManager(), "BriefCardFragment");
-//                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//                fragmentTransaction.add(fragment, "BriefCardFragment");
-//                fragmentTransaction.commit();
-            }
-        });
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_main);
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setDefaultTab(R.id.tab_home);
+
+        Utils.setMIUIStatusBarDarkMode(this, true);
 
         init();
     }
 
     private void init() {
 
-    }
-
-    /**
-     * 设置透明状态拦
-     * 已经通过主题样式解决,当结合修改状态栏风格时,代码方式会有问题.
-     */
-    @Deprecated
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private void setTranslucentStyle() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            int statusBarHeight = Utils.getStatusBarHeight(this);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) toolbar.getLayoutParams();
-            layoutParams.setMargins(0, statusBarHeight, 0, 0);
-            toolbar.setLayoutParams(layoutParams);
-        }
-    }
-
-    /**
-     * 设置MIUI状态栏显示模式?
-     */
-    public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkMode) {
-        Class<? extends Window> clazz = activity.getWindow().getClass();
-        try {
-            int darkModeFlag;
-            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
-            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
-            darkModeFlag = field.getInt(layoutParams);
-            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-            extraFlagField.invoke(activity.getWindow(), darkMode ? darkModeFlag : 0, darkModeFlag);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    /**
-     * 设置Meizu状态栏显示模式
-     */
-    public static boolean setMeizuStatusBarDarkIcon(Activity activity, boolean dark) {
-        boolean result = false;
-        if (activity != null) {
-            try {
-                WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-                Field darkFlag = WindowManager.LayoutParams.class
-                        .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
-                Field meizuFlags = WindowManager.LayoutParams.class
-                        .getDeclaredField("meizuFlags");
-                darkFlag.setAccessible(true);
-                meizuFlags.setAccessible(true);
-                int bit = darkFlag.getInt(null);
-                int value = meizuFlags.getInt(lp);
-                if (dark) {
-                    value |= bit;
-                } else {
-                    value &= ~bit;
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.tab_home:
+                        NewsFragment newsFragment = (NewsFragment) getSupportFragmentManager().findFragmentById(R.id.content_news);
+                        if (newsFragment == null) {
+                            newsFragment = NewsFragment.newInstance(1);
+                        }
+                        switchToFragment(R.id.content_news, newsFragment);
+                        break;
+                    case R.id.tab_parking:
+                        ParkingFragment parkingFragment = (ParkingFragment) getSupportFragmentManager().findFragmentById(R.id.content_fragment);
+                        if (parkingFragment == null) {
+                            parkingFragment = ParkingFragment.newInstance("", "");
+                        }
+                        switchToFragment(R.id.content_fragment, parkingFragment);
+                        break;
+                    case R.id.tab_explore:
+                        break;
+                    case R.id.tab_account:
+                        break;
                 }
-                meizuFlags.setInt(lp, value);
-                activity.getWindow().setAttributes(lp);
-                result = true;
-            } catch (Exception e) {
-                e.printStackTrace();
+            }
+        });
+
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.tab_home:
+                        NewsFragment newsFragment = (NewsFragment) getSupportFragmentManager().findFragmentById(R.id.content_news);
+                        if (newsFragment != null) {
+                            newsFragment.reselect();
+                        }
+                        break;
+                }
+            }
+        });
+    }
+
+    public void switchToFragment(@IdRes int containerViewId, Fragment to) {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        if (fragmentList != null &&
+                !fragmentList.isEmpty()) {
+            for (Fragment fragment : fragmentList) {
+                if (fragment.isVisible()) {
+                    transaction.hide(fragment);
+                }
             }
         }
-        return result;
+
+        if (!to.isAdded()) {
+            transaction.add(containerViewId, to)
+                    .commit();
+        } else {
+            transaction.show(to)
+                    .commit();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            onBackKeyDown();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void onBackKeyDown() {
+        long currMillis = System.currentTimeMillis();
+        if (currMillis - lastTime > EXIT_MILLIS) {
+            lastTime = currMillis;
+            Snackbar.make(coordinatorLayout, "再按一次返回键退出", (int) EXIT_MILLIS)
+                    .show();
+        } else {
+            //退到后台,不结束应用
+            moveTaskToBack(false);
+        }
     }
 }

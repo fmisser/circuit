@@ -4,7 +4,6 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
     app:theme="@style/Base.CardView">
 
     <RelativeLayout
@@ -16,30 +15,25 @@
             android:id="@+id/cardView_image"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:scaleType="center" />
 
         <TextView
             android:id="@+id/cardView_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="迪凯国际中心"
             android:textColor="@color/colorBlack"
-            android:layout_alignLeft="@+id/cardView_image"
-            android:layout_alignRight="@+id/cardView_image"
             android:layout_below="@+id/cardView_image" />
 
         <TextView
             android:id="@+id/cardView_intro"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="写字楼"
             android:textColor="@color/colorBlack"
-            android:layout_alignLeft="@+id/cardView_image"
-            android:layout_alignRight="@+id/cardView_image"
             android:layout_below="@+id/cardView_name"/>
 
     </RelativeLayout>
-
 
 </android.support.v7.widget.CardView>

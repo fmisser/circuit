@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_home_black_24dp"
+        title="Home" />
+    <tab
+        id="@+id/tab_parking"
+        icon="@drawable/ic_local_parking_black_24dp"
+        title="Parking" />
+    <tab
+        id="@+id/tab_explore"
+        icon="@drawable/ic_explore_black_24dp"
+        title="Explore" />
+    <tab
+        id="@+id/tab_account"
+        icon="@drawable/ic_account_circle_black_24dp"
+        title="Account" />
+</tabs>

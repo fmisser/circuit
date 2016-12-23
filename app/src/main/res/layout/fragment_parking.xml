@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fmisser.circuit.ParkingFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorLightWhite">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:drawableLeft="@drawable/ic_menu_757575_24dp"
+            android:drawableStart="@drawable/ic_menu_757575_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/textView_drawable_horizontal_padding"
+            android:text="@string/toolbar_main_title"
+            android:textColor="@color/toolbar_text_gray"
+            android:textSize="@dimen/toolbar_title_text_size"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:drawableLeft="@drawable/ic_search_757575_24dp"
+            android:drawableStart="@drawable/ic_search_757575_24dp"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <!--<android.support.v4.widget.DrawerLayout-->
+        <!--android:id="@+id/fragment_parking_drawerLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--android:background="@color/colorLightWhite">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/showFragment"-->
+                <!--android:clickable="true"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="Hello World!"-->
+                <!--android:textColor="@color/colorBlack"/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:background="@color/colorAccent">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="Hello World!" />-->
+
+        <!--</LinearLayout>-->
+
+    <!--</android.support.v4.widget.DrawerLayout>-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_main">
+
+        <TextView
+            android:id="@+id/showFragment"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Hello World!"
+            android:textColor="@color/colorBlack"/>
+
+    </FrameLayout>
+
+    <com.fmisser.circuit.BriefCardView
+        android:id="@+id/brief_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/brief_card_view_margin_bottom"
+        android:layout_alignParentBottom="true">
+
+    </com.fmisser.circuit.BriefCardView>
+
+
+</RelativeLayout>

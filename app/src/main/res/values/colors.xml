@@ -12,4 +12,7 @@
     <!-- Toolbar colors. -->
     <color name="toolbar_text_gray">#777C7E</color>
 
+    <!--guide activity-->
+    <color name="colorVideoBackground">#F3F7F8</color>
+
 </resources>
