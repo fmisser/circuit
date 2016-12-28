@@ -109,8 +109,6 @@ public class NewsFragment extends Fragment {
     public void reselect() {
         View view = getView();
         if (view instanceof RecyclerView) {
-//            LinearLayoutManager layoutManager = (LinearLayoutManager) ((RecyclerView) view).getLayoutManager();
-//            layoutManager.scrollToPositionWithOffset(0, 0);
             ((RecyclerView) view).smoothScrollToPosition(0);
         }
     }

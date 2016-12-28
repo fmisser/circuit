@@ -4,9 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
-import android.util.Size;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +19,9 @@ import java.lang.reflect.Method;
  */
 
 public class Utils {
+
+    private static final String MANUFACTURER_XIAOMI = "Xiaomi";
+    private static final String SYS_PROP_MIUI_VERSION = "ro.miui.ui.version.name";
 
 
     /**
@@ -121,7 +122,8 @@ public class Utils {
     }
 
     /**
-     * 小米MIUI6+ 设置状态栏内容风格
+     * 小米MIUI6+ 设置状态栏内容风格 ,
+     * 参考小米文档: @see http://dev.xiaomi.com/doc/p=4769/index.html
      * @param darkMode 为true时文字为深色,适合亮色状态栏
      */
     public static void setMIUIStatusBarDarkMode(Activity activity, boolean darkMode) {
@@ -139,7 +141,9 @@ public class Utils {
     }
 
     /**
-     * 魅族flyme4+设置状态栏内容风格
+     * 魅族flyme4+设置状态栏内容风格 ,
+     * 参考魅族文档: @see http://open-wiki.flyme.cn/index.php?title=Flyme%E7%B3%BB%E7%BB%9FAPI
+     * 和 @see http://open-wiki.flyme.cn/index.php?title=%E7%8A%B6%E6%80%81%E6%A0%8F%E5%8F%98%E8%89%B2
      * @param isFontColorDark 为true时文字为深色,适合亮色状态栏
      */
     public static void setFLYMEStatusBarLightMode(Activity activity, boolean isFontColorDark) {
@@ -166,5 +170,31 @@ public class Utils {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 获取小米系统的版本号,参考小米提供的方法, @see http://dev.xiaomi.com/doc/?p=254
+     * @return 小米系统版本,返回null表示非小米系统
+     */
+    public static String getMIUIVersion() {
+        if (Build.MANUFACTURER.equals(MANUFACTURER_XIAOMI)) {
+            return systemPropertiesGet(SYS_PROP_MIUI_VERSION, "", String.class);
+        }
+        return null;
+    }
+
+    /**
+     * 读取系统属性值
+     */
+    @SuppressWarnings("unchecked")
+    private static <T> T systemPropertiesGet(T prop, T defVal, Class<T> tClass) {
+        try {
+            Class<?> propClass = Class.forName("android.os.SystemProperties");
+            Method method = propClass.getMethod("get", tClass, tClass);
+            return (T) method.invoke(propClass.newInstance(), prop, defVal);
+        } catch (Exception e) {
+
+        }
+        return defVal;
     }
 }

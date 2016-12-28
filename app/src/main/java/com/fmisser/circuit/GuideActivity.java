@@ -15,6 +15,7 @@ public class GuideActivity extends AppCompatActivity {
 
     private VideoView videoView;
     private FrameLayout mask;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +24,12 @@ public class GuideActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Utils.setStatusBarColor(this, getResources().getColor(R.color.colorVideoBackground));
-            Utils.setMIUIStatusBarDarkMode(this, true);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Utils.setTranslucentStatus(this);
+        }
+
+        String version = Utils.getMIUIVersion();
+        if (version != null) {
             Utils.setMIUIStatusBarDarkMode(this, true);
         }
 
@@ -44,7 +48,7 @@ public class GuideActivity extends AppCompatActivity {
         mask = (FrameLayout) findViewById(R.id.mask);
 
         videoView = (VideoView) findViewById(R.id.video_view);
-        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.guide_1));
+        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.guide_2));
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -64,9 +68,24 @@ public class GuideActivity extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                videoView.start();
+//                videoView.start();
+//                videoView.seekTo(videoView.getDuration());
             }
         });
         videoView.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoView.seekTo(position);
+        videoView.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        position = videoView.getCurrentPosition();
+        videoView.pause();
     }
 }
