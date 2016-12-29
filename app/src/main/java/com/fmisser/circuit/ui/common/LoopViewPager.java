@@ -28,10 +28,25 @@ public class LoopViewPager extends ViewPager {
         //当使用LoopViewPager时,将数据item对应position转化成无限循环的position
         PagerAdapter pagerAdapter = getAdapter();
         if (pagerAdapter instanceof LoopPagerAdapter) {
-            int position = super.getCurrentItem() - super.getCurrentItem() % ((LoopPagerAdapter) pagerAdapter).getItemCount() + item;
-            super.setCurrentItem(position);
+//            int position = super.getCurrentItem() - super.getCurrentItem() % ((LoopPagerAdapter) pagerAdapter).getItemCount() + item;
+//            super.setCurrentItem(position);
+            //每次都定位到中心附近
+            super.setCurrentItem(getStartItem((LoopPagerAdapter) pagerAdapter) + item);
         } else {
             super.setCurrentItem(item);
+        }
+    }
+
+    @Override
+    public void setCurrentItem(int item, boolean smoothScroll) {
+        //当使用LoopViewPager时,将数据item对应position转化成无限循环的position
+        PagerAdapter pagerAdapter = getAdapter();
+        if (pagerAdapter instanceof LoopPagerAdapter) {
+//            int position = super.getCurrentItem() - super.getCurrentItem() % ((LoopPagerAdapter) pagerAdapter).getItemCount() + item;
+//            super.setCurrentItem(position, smoothScroll);
+            super.setCurrentItem(getStartItem((LoopPagerAdapter) pagerAdapter) + item);
+        } else {
+            super.setCurrentItem(item, smoothScroll);
         }
     }
 
@@ -51,8 +66,28 @@ public class LoopViewPager extends ViewPager {
         //当使用LoopViewPager时,初始化无限循环的position为中间
         PagerAdapter pagerAdapter = getAdapter();
         if (pagerAdapter instanceof LoopPagerAdapter) {
-            int midd = pagerAdapter.getCount() / 2;
-            super.setCurrentItem(midd - midd % ((LoopPagerAdapter) pagerAdapter).getItemCount());
+            super.setCurrentItem(getStartItem((LoopPagerAdapter) pagerAdapter));
+        }
+    }
+
+    /**
+     * 当调用:{@link PagerAdapter#notifyDataSetChanged()} 以后,调用下此方法重设起始位置为中心
+     */
+    public void adjustForDataChanged() {
+        //当使用LoopViewPager时,初始化无限循环的position为中间
+        PagerAdapter pagerAdapter = getAdapter();
+        if (pagerAdapter instanceof LoopPagerAdapter) {
+            super.setCurrentItem(getStartItem((LoopPagerAdapter) pagerAdapter), false);
+        }
+    }
+
+    private int getStartItem(LoopPagerAdapter adapter) {
+        int midd = adapter.getCount() / 2;
+        int actualCount = adapter.getItemCount();
+        if (actualCount != 0) {
+            return midd - midd % actualCount;
+        } else {
+            return 0;
         }
     }
 }
